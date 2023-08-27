@@ -1,6 +1,7 @@
 const express = require('express');
 const { getUser, getAllUsers, createUser, loginUser, updateUser, toggleUserStatus, deleteUser, resetPassword} = require('../controllers/userController');
 const {authenticateJWT} = require('../controllers/jwtController')
+
 const router = express.Router();
 const upload = require('../helper/upload')
 

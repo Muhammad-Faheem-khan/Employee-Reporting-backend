@@ -8,7 +8,6 @@ exports.authenticateJWT = (req, res, next) => {
     const token = bearer[1];
     jwt.verify(token, process.env.SECRETE_KEY, (err, authData) => {
       if (err) {
-        console.error("JWT Verification Error:", err);
         return res.status(403).json({
           code: "Invalid Token!",
         });
@@ -24,7 +23,6 @@ exports.authenticateJWT = (req, res, next) => {
             next();
           })
           .catch(error => {
-            console.error("User Fetch Error:", error);
             return res.status(500).json({
               code: "Internal Server Error",
             });

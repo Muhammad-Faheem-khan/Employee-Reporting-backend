@@ -8,11 +8,6 @@ const SECRETE_KEY = process.env.SECRETE_KEY ;
 exports.getAllUsers = async (req, res) => {
   try {
 
-     // Check if the user has the "Admin" role
-      // if (req.user.role !== 'Admin' && req.user.role !== 'Manager') {
-      //   return res.status(403).json({ message: 'Access denied. Requires Admin role.' });
-      // }
-
     let query = User.find();
     if (req.query.sort) {
       query = query.sort(req.query.sort)
@@ -37,6 +32,7 @@ exports.getUser = async (req, res) => {
       if (req.user.role !== 'Admin' && req.user._id.toString() !== req.params.id) {
         return res.status(403).json({ message: 'Access denied. Requires Admin role.' });
       }
+
     const {id} = req.params
     const user = await User.findById(id);
       if (!user) {
@@ -64,7 +60,6 @@ exports.createUser = async (req, res) => {
           const randomIndex = Math.floor(Math.random() * charset.length);
           password += charset.charAt(randomIndex);
         }
-
         // Check if the email is already registered
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -87,7 +82,6 @@ exports.createUser = async (req, res) => {
       res.status(201).json({ message: 'User registered successfully', newUser: {name, email, password} });
 
     }catch(error) {
-        console.error('Error registering user:', error);
       res.status(500).json({ message: 'An error occurred while registering the user' });
     }
 }
@@ -114,7 +108,6 @@ exports.loginUser = async (req, res) => {
         // Return the token as a response
         res.json({ token, user });
       } catch (error) {
-        console.error('Error during login:', error);
         res.status(500).json({ message: 'An error occurred during login' });
       }
 }
@@ -237,7 +230,6 @@ exports.deleteUser = async (req, res) => {
 
     res.status(200).json({ message: 'User deleted successfully.' });
   } catch (error) {
-    console.error('Error deleting user:', error);
     res.status(500).json({ message: 'An error occurred while deleting the user.' });
   }
 };
@@ -245,11 +237,8 @@ exports.deleteUser = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
   try {
-    
     const { email } = req.body;
- console.log(email)
     const existingUser = await User.findOne({ email });
-    console.log(existingUser)
     if (!existingUser) {
       // Another user already has this email
       return res.status(409).json({ message: 'Invalid Email' });
@@ -262,7 +251,6 @@ exports.resetPassword = async (req, res) => {
         const randomIndex = Math.floor(Math.random() * charset.length);
         password += charset.charAt(randomIndex);
       }
-      console.log(password)
       user.password = await bcrypt.hash(password, 10);
       const updatedUser = await user.save();
       res.status(200).json({ message: 'Email is reset.',  newUser: {name: updatedUser.name, email: updatedUser.email, password} });

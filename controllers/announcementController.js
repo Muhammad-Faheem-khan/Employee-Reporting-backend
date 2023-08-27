@@ -5,13 +5,8 @@ const Notification = require('../models/notification');
 exports.getAllAnnouncements = async (req, res) => {
   try {
     let query = Announcement.find();
-
     const { limit, offset } = req.query;
-    // Add any additional query parameters you need, e.g., sorting, selecting specific fields
-    // if (req.query.sort) {
-    //   query = query.sort(req.query.sort);
-    // }
-
+  
     // You can add more query parameters as needed
     const totalCount = await Announcement.countDocuments(query);
 
@@ -22,7 +17,6 @@ exports.getAllAnnouncements = async (req, res) => {
 
     res.status(200).json({allAnnouncements: allAnnouncements,totalCount: totalCount});
   } catch (error) {
-    console.log(error)
     res.status(404).json({ message: error.message });
   }
 };
@@ -53,15 +47,14 @@ exports.createAnnouncement = async (req, res) => {
       const content = `New Announcement is added by Admin.`;
 
       const newNotification = new Notification({
-        type: 'new_announcement',
+        type: 'announcement',
         content,
         recipient: user._id,
-        task: newAnnouncement._id,
+        announcement: newAnnouncement._id,
         read: false,
       });
 
       await newNotification.save();
-      console.log(newNotification)
     }
 
     // Save the new announcement to the database
@@ -93,15 +86,14 @@ exports.deleteAnnouncement = async (req, res) => {
         const content = `Announcement section is updated.`;
   
         const newNotification = new Notification({
-          type: 'delete_announcement',
+          type: 'announcement',
           content,
           recipient: user._id,
-          task: deletedAnnouncement._id,
+          announcement: deletedAnnouncement._id,
           read: false,
         });
   
         await newNotification.save();
-        console.log(newNotification)
       }
   
       res.status(200).json({ message: 'Announcement deleted successfully' });
@@ -147,15 +139,14 @@ exports.deleteAnnouncement = async (req, res) => {
         const content = `Announcement section is updated.`;
   
         const newNotification = new Notification({
-          type: 'update_announcement',
+          type: 'announcement',
           content,
           recipient: user._id,
-          task: updatedAnnouncement._id,
+          announcement: updatedAnnouncement._id,
           read: false,
         });
   
         await newNotification.save();
-        console.log(newNotification)
       }
   
       res.status(200).json({message: 'Announcement is updated'});

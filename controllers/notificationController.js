@@ -1,24 +1,14 @@
 const Notification = require('../models/notification');
 
-// Create a notification
-
-exports.createNotification = async (req, res) => {
-    try {
-        const newNotification = await Notification.create(req.body);
-        res.status(201).json(newNotification);
-      } catch (error) {
-        res.status(500).json({ error: 'An error occurred' });
-      }
-  };
-
-
 // Fetch unread notifications for a user
 exports.getUnreadNotifications =  async (req, res) => {
   try {
     const notifications = await Notification.find({
-      recipient: req.params.userId,
+      recipient: req.user._id,
       read: false,
-    });
+    }).sort({ createdAt: -1 }) // Sort by createdAt field in descending order (newest first)
+    .exec();
+
     res.json(notifications);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred' });

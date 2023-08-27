@@ -11,5 +11,4 @@ router.post('/create',upload.single('img'), createAnnouncement)
 router.delete('/delete/:id', deleteAnnouncement);
 router.put('/update/:id', upload.single('img'), updateAnnouncement)
 
-
 module.exports = router;

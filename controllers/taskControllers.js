@@ -17,7 +17,6 @@ exports.getAllTasks = async (req, res) => {
       query.assignedBy = assignedBy;
     }
     if (department) {
-      // Assuming you have a department field in the user model
       query.department = department.toLowerCase();
     }
     if (priority) {
@@ -60,7 +59,7 @@ exports.deleteTask = async (req, res) => {
       const content = `Task ${deletedTask.name} is deleted by ${assignedByUser.name}`;
       
       const newNotification = new Notification({
-        type: 'task_delete',
+        type: 'task',
         content,
         recipient,
         task: deletedTask._id,
@@ -68,14 +67,13 @@ exports.deleteTask = async (req, res) => {
       });
 
       await newNotification.save();
-      console.log(newNotification)
     }
 
     const recipient = deletedTask.assignedBy
     const content = `Task ${deletedTask.name} is deleted by ${assignedByUser.name}`;
   
     const newNotification = new Notification({
-      type: 'task_delete',
+      type: 'task',
       content,
       recipient,
       task: deletedTask._id,
@@ -89,11 +87,9 @@ exports.deleteTask = async (req, res) => {
     }
     return res.status(201).json({ message: 'Task deleted successfully.' });
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: 'An error occurred while deleting the task.' });
   }
 };
-
 
 exports.createTask = async (req, res) => {
   try {
@@ -134,7 +130,7 @@ exports.createTask = async (req, res) => {
       const content = `You have been assigned a new task by ${assignedByUser.name}`;
       
       const newNotification = new Notification({
-        type: 'task_assignment',
+        type: 'task',
         content,
         recipient,
         task: createdTask._id,
@@ -142,12 +138,10 @@ exports.createTask = async (req, res) => {
       });
 
       await newNotification.save();
-      console.log(newNotification)
     }
 
     res.status(201).json({message: 'New task is assigned'});
   } catch (error) {
-    console.log("error",error)
     res.status(400).json({ message: 'An error occurred while creating the task.' });
   }
 };
@@ -186,7 +180,7 @@ exports.changeStatus = async (req, res) => {
         const content = `Task ${task.name} status is changed to ${req.body.status} by ${assignedByUser.name}`;
         
         const newNotification = new Notification({
-          type: 'task_status',
+          type: 'task',
           content,
           recipient,
           task: task._id,
@@ -194,14 +188,13 @@ exports.changeStatus = async (req, res) => {
         });
 
         await newNotification.save();
-        console.log(newNotification)
       }
 
-    const recipient = task.assignedBy
+    const recipient = task.assignedBy._id
     const content = `Task ${task.name} status is changed to ${req.body.status} by ${assignedByUser.name}`;
   
     const newNotification = new Notification({
-      type: 'task_status',
+      type: 'task',
       content,
       recipient,
       task: task._id,
@@ -252,7 +245,7 @@ exports.submitTask = async (req, res) => {
       const content = `Response is submitted on task ${task.name} by ${assignedByUser.name}`;
       
       const newNotification = new Notification({
-        type: 'task_submit',
+        type: 'task',
         content,
         recipient,
         task: task._id,
@@ -260,14 +253,13 @@ exports.submitTask = async (req, res) => {
       });
 
       await newNotification.save();
-      console.log(newNotification)
     }
 
   const recipient = task.assignedBy
   const content = `Task ${task.name} status is changed to ${req.body.status} by ${assignedByUser.name}`;
 
   const newNotification = new Notification({
-    type: 'task_submit',
+    type: 'task',
     content,
     recipient,
     task: task._id,
@@ -277,7 +269,6 @@ exports.submitTask = async (req, res) => {
 
     return res.json({message: 'Response is submitted'});
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: 'Server error' });
   }
 
@@ -303,7 +294,6 @@ exports.deleteResponse = async (req, res) => {
 
     return res.json({ message: 'Response deleted successfully' });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: 'Server error' });
   }
 }
