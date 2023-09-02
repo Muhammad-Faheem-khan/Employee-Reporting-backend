@@ -190,17 +190,25 @@ exports.changeStatus = async (req, res) => {
         await newNotification.save();
       }
 
-    const recipient = task.assignedBy._id
     const content = `Task ${task.name} status is changed to ${req.body.status} by ${assignedByUser.name}`;
   
-    const newNotification = new Notification({
+    const newNotification1 = new Notification({
       type: 'task',
       content,
-      recipient,
+      recipient: assignedByUser._id,
       task: task._id,
       read: false,
     });
-    await newNotification.save();
+    await newNotification1.save();
+
+    const newNotification2 = new Notification({
+      type: 'task',
+      content,
+      recipient: task.assignedBy._id,
+      task: task._id,
+      read: false,
+    });
+    await newNotification2.save();
     
         await task.save();
      res.status(200).json(task)
