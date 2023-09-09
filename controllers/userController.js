@@ -143,7 +143,7 @@ exports.updateUser = async (req, res) => {
     }
     let imgPath = null;
     if (req.file) {
-      imgPath = "http://localhost:5000/uploads/" + req.file?.filename 
+      imgPath = "http://srv418011.hstgr.cloud/uploads/" + req.file?.filename 
     }else{
       imgPath = user.img
     }

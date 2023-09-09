@@ -102,7 +102,7 @@ exports.createTask = async (req, res) => {
 
     let filesPath = [];
     files.forEach(file => {
-      filesPath.push("http://localhost:5000/uploads/" + file.filename);
+      filesPath.push("http://srv418011.hstgr.cloud/uploads/" + file.filename);
     });
 
     const idArray = assignedToIds.split(',');
@@ -225,7 +225,7 @@ exports.submitTask = async (req, res) => {
     const files = req.files;
     let filesPath = [];
     files.forEach(file => {
-      filesPath.push("http://localhost:5000/uploads/" + file.filename);
+      filesPath.push("http://srv418011.hstgr.cloud/uploads/" + file.filename);
     });
     // Create a new response object
     const response = {

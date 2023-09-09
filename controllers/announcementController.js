@@ -33,7 +33,7 @@ exports.createAnnouncement = async (req, res) => {
     // Process the uploaded image using multer
     let imgPath = null;
     if (req.file) {
-      imgPath = "http://localhost:5000/uploads/" + req.file.filename// Store the image path on the server
+      imgPath = "http://srv418011.hstgr.cloud/uploads/" + req.file.filename// Store the image path on the server
     }
 
     // Create a new instance of the Announcement model
@@ -121,7 +121,7 @@ exports.deleteAnnouncement = async (req, res) => {
 
       let imgPath = null;
       if (req.file) {
-        imgPath = "http://localhost:5000/uploads/" + req.file?.filename 
+        imgPath = "http://srv418011.hstgr.cloud/uploads/" + req.file?.filename 
       }else{
         imgPath = announcement.img
       }
