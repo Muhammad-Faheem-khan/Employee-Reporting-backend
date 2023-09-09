@@ -8,7 +8,7 @@ const announcementRoutes = require('./routes/announcementRoutes')
 const taskRoutes =  require('./routes/taskRoutes')
 const notificationRoutes = require('./routes/notificationRoutes')
 
-const cors = require('cors'); 
+const cors = require('cors');  
 
 const mongoURI = process.env.MONGODB_URI;
 app.use(bodyParser.json()); //application/json
