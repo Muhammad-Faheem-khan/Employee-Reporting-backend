@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const userRoutes = require('./routes/userRoutes')
 const announcementRoutes = require('./routes/announcementRoutes')
 const taskRoutes =  require('./routes/taskRoutes')
-const notificationRoutes = require('./routes/notificationRoutes')
+const notificationRoutes = require('./routes/notificationRoutes') 
 
 const cors = require('cors');  
 
