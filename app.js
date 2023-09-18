@@ -12,7 +12,13 @@ const cors = require('cors');
 
 const mongoURI = process.env.MONGODB_URI;
 app.use(bodyParser.json()); //application/json
-app.use(cors());
+
+// Allow requests from a specific origin (replace 'http://example.com' with your frontend domain)
+const corsOptions = {
+  origin: 'http://example.com',
+};
+
+app.use(cors(corsOptions));
 app.use('/api/users', userRoutes)
 app.use('/api/announcement',  announcementRoutes)
 app.use('/api/task',  taskRoutes)
