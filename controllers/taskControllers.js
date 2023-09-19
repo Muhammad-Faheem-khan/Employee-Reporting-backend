@@ -102,7 +102,7 @@ exports.createTask = async (req, res) => {
 
     let filesPath = [];
     files.forEach(file => {
-      filesPath.push("http://srv418011.hstgr.cloud/uploads/" + file.filename);
+      filesPath.push("http://srv418011.hstgr.cloud/dest/uploads/" + file.filename);
     });
 
     const idArray = assignedToIds.split(',');
@@ -192,7 +192,7 @@ exports.changeStatus = async (req, res) => {
 
     const content = `Task ${task.name} status is changed to ${req.body.status} by ${assignedByUser.name}`;
   
-    if(!task.assignedToIds.includes(assignedByUser)){
+    if(!task.assignedToIds.includes(assignedByUser._id)){
       const newNotification1 = new Notification({
         type: 'task',
         content,
