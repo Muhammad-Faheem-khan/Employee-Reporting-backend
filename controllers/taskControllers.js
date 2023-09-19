@@ -102,7 +102,7 @@ exports.createTask = async (req, res) => {
     
     let filesPath = [];
     files.forEach(file => {
-      filesPath.push("http://srv418011.hstgr.cloud/root/apps/backend-nb/dest/uploads" + file.filename);
+      filesPath.push("http://srv418011.hstgr.cloud/apps/backend-nb/dest/uploads" + file.filename);
     });
 
     const idArray = assignedToIds.split(',');
