@@ -1,7 +1,6 @@
 const Task = require('../models/taskModel'); 
 const User = require('../models/user');
 const Notification = require('../models/notification');
-const path = require('path');
 
 exports.getAllTasks = async (req, res) => {
   try {
@@ -101,12 +100,9 @@ exports.createTask = async (req, res) => {
     const { name, assignedToIds, assignedToNames, priority, status, deadline,department, description, assignedBy } = req.body;
     const files = req.files;
     
-
-    // Construct the relative path to the "uploads" folder
-    const uploadsPath = path.join(__dirname, 'uploads/');
     let filesPath = [];
     files.forEach(file => {
-      filesPath.push(uploadsPath + file.filename);
+      filesPath.push("http://srv418011.hstgr.cloud/root/apps/backend-nb/uploads" + file.filename);
     });
 
     const idArray = assignedToIds.split(',');
