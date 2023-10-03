@@ -64,6 +64,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: null,
       },
+      img: {
+        type: String,
+        default: null,
+      },
 
       employeeCode: {
         type: String,
