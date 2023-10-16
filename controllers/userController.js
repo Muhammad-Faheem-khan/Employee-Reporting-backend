@@ -38,6 +38,8 @@ exports.getUser = async (req, res) => {
       if (!user) {
         return res.status(404).send('User not found');
       }else{
+        employeeReportingTo = await User.findById(user.employeeReportingTo)
+        user.employeeReportingTo = employeeReportingTo
        res.status(200).json(user)
       }
     }catch(error) {
