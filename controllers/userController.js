@@ -39,7 +39,7 @@ exports.getUser = async (req, res) => {
         return res.status(404).send('User not found');
       }else{
         employeeReportingTo = await User.findById(user.employeeReportingTo)
-        user.employeeReportingTo = employeeReportingTo
+        user.employeeReportingTo = employeeReportingTo.name
        res.status(200).json(user)
       }
     }catch(error) {
