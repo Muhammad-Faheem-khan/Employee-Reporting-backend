@@ -156,7 +156,7 @@ exports.updateUser = async (req, res) => {
     user.departmentName = req.body.departmentName;
     user.designation = req.body.designation;
     user.jobDescription = req.body.jobDescription;
-    user.employeeReportingTo = req.body.employeeReportingTo._id;
+    user.employeeReportingTo = req.body.employeeReportingTo;
     user.employeeStatus = req.body.employeeStatus;
     user.salary = req.body.salary;
     user.joiningDate = req.body.joiningDate;
