@@ -12,7 +12,7 @@ const cors = require('cors');
 
 const mongoURI = process.env.MONGODB_URI;
 app.use(bodyParser.json()); //application/json
-const allowedOrigins = ['http://localhost:8080', 'http://nbmanagementsystem.com'];
+const allowedOrigins = ['http://localhost:8080', 'http://nbmanagementsystem.com', 'https://nbmanagementsystem.com'];
 
 const corsOptions = {
   origin: function (origin, callback) {
